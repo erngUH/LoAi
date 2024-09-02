@@ -1,0 +1,133 @@
+
+<section class="main-app">
+    <nav class="navbar">
+        <div class="container"> 
+          <span class="align-middle"> Server status: {{sStatus}}</span>  
+        </div>
+    </nav>
+    <table class="table-main">
+        <tr>
+          <td>
+            <div class="box">
+                <h1 class="box-title">INPUT</h1>
+                    <div class="card">
+                        <div class="card-body" (dragover)="onDragOver($event)" (drop)="onDrop($event)" (click)="triggerSelectFile(fileInput)">
+                            <div *ngIf="!url; then thenBlock else elseBlock"></div>
+                            <ng-template #thenBlock class="card-hold">
+                                <div>
+                                    <p>Click, Drag, or Paste to Upload Image</p>
+                                    <p style="font-size: 20px; color: rgb(184, 45, 45);">Input will be cropped to 2x3 ratio</p>
+                                </div>
+                            </ng-template>
+                            <ng-template #elseBlock><img  [src]="url" id="inputImg" alt="input img" title="Click to Upload Image"></ng-template>
+                        </div>
+                    </div>
+                <div class="bottom-overlay">
+                    <button class="overlay-btn" (click)="triggerSelectFile(fileInput)">
+                        SELECT IMAGE
+                    </button>
+                    <label style="display: none" for="filein">Select Image</label>
+                    <input #fileInput type="file" style="display: none" (change)="selectFile($event)" accept="image/png, image/jpg, image/jpeg" id="filein"/>
+                <!--                     <button class="overlay-btn" (click)="enableExtra = !enableExtra">
+                        MORE OPTIONS
+                    </button> -->
+                </div>
+            </div>
+          </td>
+          <td>
+            <div class="box">
+                <div class="btn btn-center" (click)="submitApplication(1)">
+                    <span class="tooltiptext">Read the guide!</span> 
+                    <!-- <input type="image" src="../../assets/images/amongus.gif" class="btn-img" alt="Submit"/> -->
+                    <div>START!</div>
+                </div>
+            </div>
+          </td>
+          <td>
+            <div class="box">
+                <h1 class="box-title">OUTPUT</h1>
+                <div class="card">
+                    <div class="card-body" id="outputImg" (click)="showPreview()">
+                        <div *ngIf="!urlOut then thenOutBlock else elseOutBlock"></div>
+                        <ng-template #thenOutBlock class="card-hold">
+                            <div>
+                                <p>Output Image</p>
+                            </div>
+                        </ng-template>
+                        <ng-template #elseOutBlock><img [src]="urlOut" alt="output" title="Open Preview"/></ng-template>
+                    </div>
+                </div>
+                <div class="bottom-overlay">
+                    <button (click)="saveOutput()" class="overlay-btn">SAVE IMAGE</button>
+                </div>
+            </div>
+          </td>
+        </tr>
+    </table>
+    <section *ngIf="enableExtra">
+        <div style="width: 1200px; margin: auto;">
+            <div style="display: block; width: 300px; margin: auto;  border-radius: 0.5rem;">
+                <div style="display: flex; align-items: center; margin-bottom: 0.3rem; height: 3rem;">
+                    <div style="font-size: 20px; color: white; margin-right: 1rem;">Strength:  </div>
+                    <input type="range" min="1" max="3" (input)="updateStrength($event)" class="slider" value="3">
+                </div>
+            </div>
+            <div>
+                <textarea 
+                [value]="extraPrompts" 
+                (input)="onExtraChange($event)" 
+                class="extratext" maxlength="250" 
+                placeholder="Extra prompts:&#10;flowers, beach, blurry background, black hair, white dress"
+                ></textarea>
+                <textarea 
+                [value]="facePromts" 
+                (input)="onFaceChange($event)" 
+                class="extratext" maxlength="250" 
+                placeholder="Face correction prompts:&#10;blue eyes, round glasses, smile"
+                ></textarea>
+            </div>
+        </div>
+    </section>
+    
+    <div class="overlay" *ngIf="inMaintenance || !verified">
+        <div class="overlay-info">
+          <img src="../assets/images/dedge.webp" alt="dedge"/>
+            <h1>Server Unavailable</h1>
+            <p>Contact site owner at Discord: eharan_luo</p>
+        </div>
+      </div>
+    <div class="overlay" *ngIf="isWaiting">
+        <div class="overlay-info">
+            <img src="../../assets/images/rolling.gif" alt="loading"/>
+            <h1>Loading.....</h1>
+            <div class="progress-bar">
+                <div class="progress-bar-fill" [ngStyle]="{'width.%': loadpercent}">{{loadpercent +"%"}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" *ngIf="msg">
+        <div class="err-info">
+            <img src="../../assets/images/dedge.webp" alt="loading"/>
+            <h1>{{msg}}</h1>
+            <button class="err-btn" (click)="errConfirm()">OK</button>
+        </div>
+    </div>
+    <div class="preview" *ngIf="previewEnabled">
+        <div class="preview-control">
+            <img  [src]="zoomState ? '../../assets/zoomout.svg' : '../../assets/zoomin.svg'" alt="Zoom" width="50px" (click)="zoomImage()">
+            <img src="../../assets/close.svg" alt="Close" width="50px" (click)="disablePreview()">
+        </div>
+        <img [src]="urlOut" *ngIf="urlOut" alt="output img" [class]="zoomState ? 'preview-image-full' : 'preview-image'" title="Preview">
+    </div>
+
+
+
+    <section>
+        <app-recent [recentEvent]="notifyRecent"></app-recent>
+    </section>
+    <!--Tips-->
+    <section class="body-m">
+        <app-tip></app-tip>
+    </section>
+</section>
+

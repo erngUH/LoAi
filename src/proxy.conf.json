@@ -1,0 +1,13 @@
+{
+  "/internal": {
+    "target": "SD_API_URL",
+    "secure": false,
+    "logLevel": "debug"
+  }
+  ,
+  "/ctl":{
+    "target": "admin_URL_disabled",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}

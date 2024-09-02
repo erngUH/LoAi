@@ -1,0 +1,10 @@
+<div *ngIf="recentImgs.length > 0" class="recent-section">
+    <h2>RECENT GENERATIONS</h2>
+    <div class="separation"></div>
+    <div class="recent-box">
+        <div *ngFor="let item of recentImgs"  class="recent-card">
+            <img src="{{'data:image/jpeg;base64,' +item.img}}" alt="Img" (click)="openImg(item.img)">
+        </div>
+    </div>
+    <div class="separation"></div>
+</div>

@@ -1,0 +1,39 @@
+<div class="table-responsive">
+    <div class="top-util">
+        <div>
+            <div class="paging">
+                <div class="pages" (click)="changePage(0)"><<</div>
+                <div *ngFor="let item of countarr; let pageNum = index" (click)="changePage(pageNum)">
+                    <div *ngIf="(pageNum >= (currentpage-5)) && (pageNum < (currentpage+5))"><div *ngIf="pageNum == currentpage; else elseBlock"><div class="selectedpg">{{pageNum + 1}}</div></div>
+                    <ng-template #elseBlock><div class="pages">{{pageNum + 1}}</div></ng-template></div>
+                </div>
+                <div class="pages" (click)="changePage(countarr.length-1)">>></div>
+            </div>
+        </div>
+    </div>
+    <table class="table-gens">
+        <tbody>
+            <tr *ngFor="let row of rows">
+                <td *ngFor="let item of row">
+                    <div class="ctl-card">
+                        <img [src]= "'data:image/jpeg;base64,' + item.img" (click)="openImg(item.genID)" id="genImg" alt="Gen Img"/>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="top-util">
+        <div>
+            <div class="paging">
+                <div *ngFor="let item of countarr; let pageNum = index" (click)="changePage(pageNum)">
+                    <div *ngIf="(pageNum >= (currentpage-5)) && (pageNum < (currentpage+5))"><div *ngIf="pageNum == currentpage; else elseBlock"><div class="selectedpg">{{pageNum + 1}}</div></div>
+                    <ng-template #elseBlock><div class="pages">{{pageNum + 1}}</div></ng-template></div>
+                </div>
+                <div class="pages" (click)="changePage(countarr.length-1)">>></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="showPreview" class="preview" (click)="disablePreview()">
+    <img [src]="previewIMG" alt="output img" class="preview-image">
+</div>

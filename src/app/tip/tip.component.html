@@ -1,0 +1,49 @@
+<section>
+  <div class="tip-section">
+    <table class="table-tip">
+      <tr>
+        <td>
+          <div class="slide-container">
+            <div class="slideshow fade" *ngFor="let item of Imagedata;" id="slideshow1">
+                <img src="{{item}}" alt="Image" class="image">
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="slide-container">
+            <div class="slideshow fade" *ngFor="let item of Imagedata2;" id="slideshow2">
+                <img src="{{item}}" alt="Image" class="image">
+            </div>
+          </div>
+        </td>
+        <td style="height: 100%; width: 100%;">
+          <table style="height: 500px; width: 100%;">
+            <tr style="height: 100%;">
+                <div style="vertical-align: top; text-align: left; display:inline-block;">
+                  <h2 style="color: white;">QUICK GUIDE</h2>
+                    <p>Simple pose, No hand</p>
+                    <p>Single Female character only</p>
+                    <p>Straight head</p>
+                    <p>Portrait or Close Up only</p>
+                    <p>Simple background, No glow effect</p>
+                    <p>Pre-Adjust color and brightness</p>
+                </div>
+                <div style="display:inline-block; vertical-align: bottom;">
+                  <img src="../../assets/images/gunmokoko.webp" alt="instruct" class="" style="max-width: 150px; padding-bottom: 1rem;">
+                </div>
+            </tr>
+            <tr>
+              <div class="separation" style="width: 100%;"></div>
+              <div style="vertical-align: bottom; text-align: right;">
+                <h2 style="color: white;">UPDATES</h2>
+                  <p>This is a side project so use it while its still available.</p>
+                  <p>Status and Progress is not always accurate.</p>
+                  <p>Weekly maintenance every Wednesday.</p>
+              </div>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</section>
